@@ -1,7 +1,7 @@
 import { type TodoTitle, type FiltersValue, type TodoHandleComplete, type TodoId, type ListOfTodos } from './types'
 import { mockTodos } from './mocks/mockTodo'
 import { useEffect, useState } from 'react'
-import { Todos } from './components/Todos'
+import { Todos } from './components/todo/Todos'
 import { TODO_FILTERS } from './helpers/consts'
 import { Footer } from './ui/Footer'
 import { Header } from './ui/Header'
@@ -18,7 +18,7 @@ function App(): JSX.Element {
     const activesTodos = filteredTodos.filter(todo => !todo.completed)
     
     setTodos(filteredTodos)
-    if (completedTodos.length === 0 || activesTodos.length === 0) setSelectedFilter('all')
+    if (completedTodos.length === 0 || activesTodos.length === 0) setSelectedFilter(TODO_FILTERS.ALL)
 
     localStorage.setItem('todos', JSON.stringify(filteredTodos))
   }
@@ -52,8 +52,8 @@ function App(): JSX.Element {
   const handleRemoveAllCompleted = (): void => {
     const filteredTodos = todos.filter(todo => !todo.completed)
     setTodos(filteredTodos)
-    if (selectedFilter === 'completed') {
-      setSelectedFilter('all')
+    if (selectedFilter === TODO_FILTERS.COMPLETED) {
+      setSelectedFilter(TODO_FILTERS.ALL)
     }
     localStorage.setItem('todos', JSON.stringify(filteredTodos))
   }
